@@ -1,21 +1,9 @@
 ﻿using Google.Cloud.Speech.V1;
 using NAudio.Wave;
-using ProfanityFilter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 
 
@@ -26,8 +14,10 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainPage : Page
     {
+        
+        public static string SharedData { get; set; }
+
         private bool _isRecording = false; // флаг, указывающий, идет ли запись звука
-        string[] censoredWords = { "fuck" };
         private WaveInEvent _waveIn; // объект для записи звука
         private WaveFileWriter _waveFileWriter; // объект для записи звука в файл
 
@@ -35,26 +25,25 @@ namespace WpfApplication2
         private SpeechClient _channel; // объект для распознавания речи
         private RecognitionConfig _config; // объект для настройки параметров распознавания речи
 
+        string _lang= "en-US";
+
+        public MainPage(string language) {
+            
+        }
         public MainPage()
         {
            
             InitializeComponent();
 
+            
             // инициализируем объекты для настройки клиента распознавания речи, клиента и параметров распознавания
             _builder = new SpeechClientBuilder
             {
 
-                CredentialsPath = "C:/GoogleAPI/speech-to-text-382817-67a54d7cab72.json",
+                CredentialsPath = @"..\..\googleApi.json",
             };
             _channel = _builder.Build();
-            _config = new RecognitionConfig
-            {
-                Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
-                SampleRateHertz = 44100,
-                LanguageCode = LanguageCodes.English.UnitedKingdom,
-                AudioChannelCount = 1,
-                
-            };
+            
             
         }
 
@@ -67,11 +56,23 @@ namespace WpfApplication2
             }
             else
             {
+                if (SharedData != null)
+                {
+                    _lang = SharedData;
+                }
+                else _lang = "en-US";
 
                 _isRecording = true;
 
 
+                _config = new RecognitionConfig
+                {
+                    Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
+                    SampleRateHertz = 44100,
+                    LanguageCode = _lang,
+                    AudioChannelCount = 1,
 
+                };
                 // создаем объект WaveFormat для задания параметров записи звука
                 WaveFormat format = new WaveFormat(44100, 16, 1);
 
@@ -131,9 +132,16 @@ namespace WpfApplication2
                     // проверяем, можно ли обновлять содержимое TextBox из текущего потока
                     if (textBox1.Dispatcher.CheckAccess())
                     {
-
-                        string filteredText = filterClass.FilterCensoredWords();
-                        textBox1.AppendText($"{filteredText}");
+                        if (SharedData=="en-US")
+                        {
+                            string filteredText = filterClass.FilterCensoredWords();
+                            textBox1.AppendText($"{filteredText}"+" ");
+                        }
+                        else
+                        {
+                            textBox1.AppendText(alternative.Transcript+" ");
+                        }
+                        
                     }
                     else
                     {

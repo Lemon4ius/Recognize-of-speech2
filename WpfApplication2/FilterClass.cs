@@ -14,10 +14,7 @@ namespace WpfApplication2
         private string text { get; set; } 
         public FilterClass(string Text)
         {
-            
-                /*File.ReadAllLines(@"..\..\bad-words.txt");*/
             this.text = Text;
-
         }
 
 

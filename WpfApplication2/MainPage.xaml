@@ -8,8 +8,25 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Background="Wheat"
       Title="MainPage">
+    <Page.Resources>
+        <Style x:Key="StretchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="22" Padding="2">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        </Style>
+    </Page.Resources>
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,22 +40,54 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="startButton" Content="Start" Margin="5" Click="StartButton_OnClick" HorizontalAlignment="Center"/>
+            <Button Width="100" Name="startButton" Content="Start" Margin="5" Click="StartButton_OnClick" HorizontalAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="White" BorderBrush="#af64f5" BorderThickness="1" CornerRadius="3">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+
+            </Button>
+            
             <Button Content="Setting" Width="20" Height="20" Click="Open_Setting_Btn" HorizontalAlignment="Left"/>
         </StackPanel>
 
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="textBox1" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
-            
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+        </StackPanel>
+
+
+
+
         
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20,0,0,0"  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <TextBox  Padding="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="textBox1" >
+            <TextBox.Template>
+                <ControlTemplate>
+                    <Border  CornerRadius="22" Padding="2" BorderThickness="1" BorderBrush="#8400ff" Background="White">
+                        <ScrollViewer  Margin="0" x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+
+
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Размер" FontSize="20"  />
-                    
+                    <TextBlock Text="Размер" FontSize="20" />
                 </StackPanel>
             </Border>
         </StackPanel>
 
         <Frame x:Name="Frame" Grid.Row="1" Grid.Column="1"/>
     </Grid>
+
 </Page>

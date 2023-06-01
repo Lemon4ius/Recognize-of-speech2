@@ -25,6 +25,8 @@ namespace WpfApplication2
         List<string>  languages = new List<string>() {"Английский", "Русский" };
         List<string>  themes= new List<string>() {"Темная", "Светлая", "Розовая" };
         List<string>  outLine= new List<string>() {"Да", "Нет" };
+        List<string>  font= new List<string>() {"Arial", "TimesNewRoman" };
+        
         List<int> size = new List<int>();
 
         public Setting()
@@ -40,6 +42,14 @@ namespace WpfApplication2
             themesList.ItemsSource = themes;
             outlineList.ItemsSource= outLine;
             SizeList.ItemsSource= size;
+
+            langListBox.SelectedIndex =0;
+            microphoneListBox.SelectedIndex =0;
+            themesList.SelectedIndex =0;
+            outlineList.SelectedIndex =1;
+            SizeList.SelectedIndex =0;
+
+            
         }
         public ObservableCollection<string> GetAvailableMicrophones()
         {
@@ -55,5 +65,18 @@ namespace WpfApplication2
             return microphones;
         }
 
+        private void langListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string languageContent = langListBox.SelectedValue.ToString();
+            switch (languageContent) 
+            {
+                case "Английский":
+                    MainPage.SharedData = "en-US";
+                    break;
+                case "Русский":
+                    MainPage.SharedData="ru-RU";
+                    break;
+            }
+        }
     }
 }
