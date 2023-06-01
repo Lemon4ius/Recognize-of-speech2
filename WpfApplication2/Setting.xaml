@@ -1,0 +1,76 @@
+﻿<Page x:Class="WpfApplication2.Setting"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApplication2"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="550"
+      Background="White"
+      Title="Setting">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Заголовок -->
+                <RowDefinition Height="Auto" />
+                <!-- Панель выбора языка -->
+                <RowDefinition Height="Auto" />
+                <!-- Панель выбора устройств -->
+                <RowDefinition Height="Auto" />
+                <!-- Панель выбора темы -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Настройки для распознователя" FontSize="18.9" />
+
+            <Border Grid.Row="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Язык" FontSize="20" />
+                    <ComboBox x:Name="langListBox" Width="200" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Устройства" FontSize="20" />
+                    <ComboBox x:Name="microphoneListBox" Width="200" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="3" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Тема" FontSize="20"  />
+                    <ComboBox x:Name="themesList" Width="200" />
+                </StackPanel>
+            </Border>
+            
+            
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" Text="Настройки для сохранения"  FontSize="20" />
+            
+            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Шрифт" FontSize="20"  />
+                    <ComboBox x:Name="FontList" Width="200" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Начертание" FontSize="20"  />
+                    <ComboBox x:Name="outlineList" Width="200" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Размер" FontSize="20"  />
+                    <ComboBox x:Name="SizeList" Width="200" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+
+</Page>
