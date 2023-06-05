@@ -1,8 +1,10 @@
 ﻿using Google.Cloud.Speech.V1;
 using NAudio.Wave;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 
@@ -27,9 +29,7 @@ namespace WpfApplication2
 
         string _lang= "en-US";
 
-        public MainPage(string language) {
-            
-        }
+       
         public MainPage()
         {
            
@@ -52,10 +52,13 @@ namespace WpfApplication2
 
             if (_isRecording)
             {
+                startButton.Background = new SolidColorBrush(Colors.Green);
                 StopButton_OnClick(_isRecording);
             }
             else
             {
+                
+                
                 if (SharedData != null)
                 {
                     _lang = SharedData;
@@ -69,6 +72,11 @@ namespace WpfApplication2
                 {
                     Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
                     SampleRateHertz = 44100,
+                    EnableSpokenEmojis = true,
+                    EnableAutomaticPunctuation = true,
+                    EnableWordConfidence = true,
+                    EnableWordTimeOffsets = true,
+                    ProfanityFilter = true,
                     LanguageCode = _lang,
                     AudioChannelCount = 1,
 
@@ -102,10 +110,7 @@ namespace WpfApplication2
                     Audio = audio,
                     Config = _config
                 };
-
-
-
-                Task efsr = Task.Run(() => UpdateTextBoxAsync(outputPath));
+                 UpdateTextBoxAsync(outputPath);
 
             }
         }
@@ -120,7 +125,7 @@ namespace WpfApplication2
             };
             // отправляем запрос на распознавание речи
             RecognizeResponse response = await _channel.RecognizeAsync(request);
-            FilterClass filterClass;
+            
 
             
             // выводим результат распознавания речи в TextBox
@@ -128,26 +133,7 @@ namespace WpfApplication2
             {
                 foreach (var alternative in result.Alternatives)
                 {
-                    filterClass = new FilterClass(alternative.Transcript);
-                    // проверяем, можно ли обновлять содержимое TextBox из текущего потока
-                    if (textBox1.Dispatcher.CheckAccess())
-                    {
-                        if (SharedData=="en-US")
-                        {
-                            string filteredText = filterClass.FilterCensoredWords();
-                            textBox1.AppendText($"{filteredText}"+" ");
-                        }
-                        else
-                        {
-                            textBox1.AppendText(alternative.Transcript+" ");
-                        }
-                        
-                    }
-                    else
-                    {
-                        // вызываем метод UpdateTextBox снова в главном потоке
-                        await textBox1.Dispatcher.InvokeAsync(() => UpdateTextBoxAsync(filePath));
-                    }
+                   textBox1.AppendText(alternative.Transcript+" ");
                 }
             }
         }
