@@ -43,12 +43,14 @@ namespace WpfApplication2
             themesList.ItemsSource = themes;
             outlineList.ItemsSource= outLine;
             SizeList.ItemsSource= size;
+            FontList.ItemsSource=font;
 
-            langListBox.SelectedIndex =0;
+            langListBox.SelectedItem=Properties.Settings.Default.Lang;
             microphoneListBox.SelectedIndex =0;
-            themesList.SelectedIndex =0;
+            themesList.SelectedItem =Properties.Settings.Default.Theme;
             outlineList.SelectedIndex =1;
             SizeList.SelectedIndex =0;
+            FontList.SelectedIndex =0;
 
             
         }
@@ -68,8 +70,10 @@ namespace WpfApplication2
 
         private void chanded_Theme(object sender, SelectionChangedEventArgs e) 
         {
-            string languageContent = themesList.SelectedValue.ToString();
-            switch (languageContent)
+            string themeContent = themesList.SelectedValue.ToString();
+            Properties.Settings.Default.Theme = themeContent;
+            Properties.Settings.Default.Save();
+            switch (Properties.Settings.Default.Theme)
             {
                 case "Светлая":
                     AppTheme.ChangeTheme(new Uri("Theme/Light.xaml", UriKind.Relative));
@@ -77,21 +81,20 @@ namespace WpfApplication2
                     break;
                 case "Темная":
                     AppTheme.ChangeTheme(new Uri("Theme/Dark.xaml", UriKind.Relative));
+                   
+                    break;
+                case "Розовая":
+                    //AppTheme.ChangeTheme(new Uri("Theme/Dark.xaml", UriKind.Relative));
+                   
                     break;
             }
         }
         private void langListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string languageContent = langListBox.SelectedValue.ToString();
-            switch (languageContent) 
-            {
-                case "Английский":
-                    MainPage.SharedData = "en-US";
-                    break;
-                case "Русский":
-                    MainPage.SharedData="ru-RU";
-                    break;
-            }
+            Properties.Settings.Default.Lang = languageContent;
+            Properties.Settings.Default.Save();
+            
         }
     }
 }

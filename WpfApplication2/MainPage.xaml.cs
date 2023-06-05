@@ -1,13 +1,13 @@
 ﻿using Google.Cloud.Speech.V1;
 using NAudio.Wave;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
-
-
+using Themes_in_WPF;
 
 namespace WpfApplication2
 {
@@ -35,8 +35,27 @@ namespace WpfApplication2
            
             InitializeComponent();
 
-            
-            
+
+            switch (Properties.Settings.Default.Theme)
+            {
+                case "Светлая":
+                    AppTheme.ChangeTheme(new Uri("Theme/Light.xaml", UriKind.Relative));
+                    
+                    break;
+                case "Темная":
+                    AppTheme.ChangeTheme(new Uri("Theme/Dark.xaml", UriKind.Relative));
+                    
+                    break;
+                case "Розовая":
+                    //AppTheme.ChangeTheme(new Uri("Theme/Dark.xaml", UriKind.Relative));
+                    
+                    break;
+            }
+
+
+
+            textbox1.Text = Properties.Settings.Default.Theme;
+
             // инициализируем объекты для настройки клиента распознавания речи, клиента и параметров распознавания
             _builder = new SpeechClientBuilder
             {
@@ -68,13 +87,15 @@ namespace WpfApplication2
                 Style style = this.FindResource("ButtonOn") as Style;
                 startButton.Style= style;
 
-                
-                
-                if (SharedData != null)
+                switch (Properties.Settings.Default.Lang)
                 {
-                    _lang = SharedData;
+                    case "Английский":
+                        _lang="en-US";
+                        break;
+                    case "Русский":
+                        _lang = "ru-RU";
+                        break;
                 }
-                else _lang = "en-US";
 
                 _isRecording = true;
 
@@ -101,6 +122,7 @@ namespace WpfApplication2
                 // создаем объект WaveInEvent для захвата звука с микрофона
                 _waveIn = new WaveInEvent();
                 _waveIn.WaveFormat = format;
+                _waveIn.DeviceNumber = 0;
 
                 // создаем объект WaveFileWriter для записи данных в файл
                 string outputPath = "aud.wav";
@@ -148,7 +170,7 @@ namespace WpfApplication2
                 foreach (var alternative in result.Alternatives)
                 {
 
-                           textBox1.Text+=(alternative.Transcript+" ");
+                           textbox1.Text+=(alternative.Transcript+" ");
                         
 
                 }

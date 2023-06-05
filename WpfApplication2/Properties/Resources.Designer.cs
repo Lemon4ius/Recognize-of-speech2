@@ -61,11 +61,20 @@ namespace WpfApplication2.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на dfgfhjkj.
+        ///   Ищет локализованную строку, похожую на Английский.
         /// </summary>
-        internal static string String1 {
+        internal static string Lang {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("Lang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Светлая.
+        /// </summary>
+        internal static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
             }
         }
     }
