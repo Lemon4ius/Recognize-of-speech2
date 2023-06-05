@@ -10,7 +10,7 @@
       Title="Setting">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid>
+        <Grid Background="{DynamicResource GridMain}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <!-- Заголовок -->
@@ -26,47 +26,54 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Настройки для распознователя" FontSize="18.9" />
+            <TextBlock Foreground="{DynamicResource TextMain}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Настройки для распознователя" FontSize="18.9" />
 
-            <Border Grid.Row="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+            <Border Grid.Row="1" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Язык" FontSize="20" />
-                    <ComboBox x:Name="langListBox" Width="200"  SelectionChanged="langListBox_SelectionChanged"/>
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Язык" FontSize="20" />
+                    <ComboBox Background="{DynamicResource GridMain}" x:Name="langListBox" Width="200"  SelectionChanged="langListBox_SelectionChanged">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="2" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+            <Border Grid.Row="2" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Устройства" FontSize="20" />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Устройства" FontSize="20" />
                     <ComboBox x:Name="microphoneListBox" Width="200" />
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="3" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+            <Border Grid.Row="3" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Тема" FontSize="20"  />
-                    <ComboBox x:Name="themesList" Width="200" />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Тема" FontSize="20"  />
+                    <ComboBox SelectionChanged="chanded_Theme" x:Name="themesList" Width="200" />
                 </StackPanel>
             </Border>
-            
-            
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" Text="Настройки для сохранения"  FontSize="20" />
-            
-            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+
+
+            <TextBlock Foreground="{DynamicResource TextMain}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="10,10,0,0" TextWrapping="Wrap" Text="Настройки для сохранения"  FontSize="20" />
+
+            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Шрифт" FontSize="20"  />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Шрифт" FontSize="20"  />
                     <ComboBox x:Name="FontList" Width="200" />
                 </StackPanel>
             </Border>
-            <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+            <Border Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Начертание" FontSize="20"  />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Начертание" FontSize="20"  />
                     <ComboBox x:Name="outlineList" Width="200" />
                 </StackPanel>
             </Border>
-            <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+            <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Размер" FontSize="20"  />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Размер" FontSize="20"  />
                     <ComboBox x:Name="SizeList" Width="200" />
                 </StackPanel>
             </Border>

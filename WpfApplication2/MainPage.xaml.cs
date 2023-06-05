@@ -36,6 +36,7 @@ namespace WpfApplication2
             InitializeComponent();
 
             
+            
             // инициализируем объекты для настройки клиента распознавания речи, клиента и параметров распознавания
             _builder = new SpeechClientBuilder
             {
@@ -52,11 +53,21 @@ namespace WpfApplication2
 
             if (_isRecording)
             {
-                startButton.Background = new SolidColorBrush(Colors.Green);
+
+                
+
+
+                Style style = this.FindResource("ButtonDef") as Style;
+                startButton.Style = style;
+
                 StopButton_OnClick(_isRecording);
             }
             else
             {
+
+                Style style = this.FindResource("ButtonOn") as Style;
+                startButton.Style= style;
+
                 
                 
                 if (SharedData != null)
@@ -78,6 +89,9 @@ namespace WpfApplication2
                     EnableWordTimeOffsets = true,
                     ProfanityFilter = true,
                     LanguageCode = _lang,
+                   
+                   
+
                     AudioChannelCount = 1,
 
                 };
@@ -133,7 +147,10 @@ namespace WpfApplication2
             {
                 foreach (var alternative in result.Alternatives)
                 {
-                   textBox1.AppendText(alternative.Transcript+" ");
+
+                           textBox1.Text+=(alternative.Transcript+" ");
+                        
+
                 }
             }
         }
@@ -148,7 +165,7 @@ namespace WpfApplication2
         {
             if (checkRecord)
             {
-                MessageBox.Show("Запись не идет!");
+                
                 _isRecording = false;
                 // останавливаем запись звука
                 _waveIn.StopRecording();
