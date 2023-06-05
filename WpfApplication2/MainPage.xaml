@@ -56,7 +56,7 @@
 
     </Page.Resources>
 
-    <Grid Background="{DynamicResource GridMain}" Width="800" Height="600">
+    <Grid Background="{DynamicResource GridMain}" Height="450" >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
