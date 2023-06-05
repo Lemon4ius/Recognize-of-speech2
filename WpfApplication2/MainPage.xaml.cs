@@ -3,6 +3,7 @@ using NAudio.Wave;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 
@@ -36,6 +37,7 @@ namespace WpfApplication2
             InitializeComponent();
 
             
+            
             // инициализируем объекты для настройки клиента распознавания речи, клиента и параметров распознавания
             _builder = new SpeechClientBuilder
             {
@@ -52,10 +54,19 @@ namespace WpfApplication2
 
             if (_isRecording)
             {
+                
+
+
+                Style style = this.FindResource("ButtonDef") as Style;
+                startButton.Style = style;
                 StopButton_OnClick(_isRecording);
             }
             else
             {
+                Style style = this.FindResource("ButtonOn") as Style;
+                startButton.Style= style;
+                
+                
                 if (SharedData != null)
                 {
                     _lang = SharedData;
@@ -70,6 +81,9 @@ namespace WpfApplication2
                     Encoding = RecognitionConfig.Types.AudioEncoding.Linear16,
                     SampleRateHertz = 44100,
                     LanguageCode = _lang,
+                    ProfanityFilter = true,
+                    
+                    EnableAutomaticPunctuation= true,
                     AudioChannelCount = 1,
 
                 };
@@ -132,16 +146,9 @@ namespace WpfApplication2
                     // проверяем, можно ли обновлять содержимое TextBox из текущего потока
                     if (textBox1.Dispatcher.CheckAccess())
                     {
-                        if (SharedData=="en-US")
-                        {
-                            string filteredText = filterClass.FilterCensoredWords();
-                            textBox1.AppendText($"{filteredText}"+" ");
-                        }
-                        else
-                        {
-                            textBox1.AppendText(alternative.Transcript+" ");
-                        }
+                           textBox1.Text+=(alternative.Transcript+" ");
                         
+                      
                     }
                     else
                     {
@@ -162,7 +169,7 @@ namespace WpfApplication2
         {
             if (checkRecord)
             {
-                MessageBox.Show("Запись не идет!");
+                
                 _isRecording = false;
                 // останавливаем запись звука
                 _waveIn.StopRecording();

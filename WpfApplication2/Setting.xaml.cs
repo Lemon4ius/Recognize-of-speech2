@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Themes_in_WPF;
 
 namespace WpfApplication2
 {
@@ -23,7 +24,7 @@ namespace WpfApplication2
     public partial class Setting : Page
     {
         List<string>  languages = new List<string>() {"Английский", "Русский" };
-        List<string>  themes= new List<string>() {"Темная", "Светлая", "Розовая" };
+        List<string>  themes= new List<string>() { "Светлая", "Темная", "Розовая" };
         List<string>  outLine= new List<string>() {"Да", "Нет" };
         List<string>  font= new List<string>() {"Arial", "TimesNewRoman" };
         
@@ -65,6 +66,20 @@ namespace WpfApplication2
             return microphones;
         }
 
+        private void chanded_Theme(object sender, SelectionChangedEventArgs e) 
+        {
+            string languageContent = themesList.SelectedValue.ToString();
+            switch (languageContent)
+            {
+                case "Светлая":
+                    AppTheme.ChangeTheme(new Uri("Theme/Light.xaml", UriKind.Relative));
+                    
+                    break;
+                case "Темная":
+                    AppTheme.ChangeTheme(new Uri("Theme/Dark.xaml", UriKind.Relative));
+                    break;
+            }
+        }
         private void langListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string languageContent = langListBox.SelectedValue.ToString();

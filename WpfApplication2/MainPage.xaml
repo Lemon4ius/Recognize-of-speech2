@@ -9,6 +9,7 @@
       Background="Wheat"
       Title="MainPage">
     <Page.Resources>
+        
         <Style x:Key="StretchTextBoxStyle" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -22,10 +23,40 @@
             </Setter>
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            
+            
         </Style>
+
+
+        <Style x:Key="ButtonDef" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border  Background="{DynamicResource Button}" BorderBrush="#af64f5" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonOn" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="LightGreen" BorderBrush="#af64f5" BorderThickness="1" CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        
+
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="{DynamicResource GridMain}">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -40,23 +71,8 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Width="100" Name="startButton" Content="Start" Margin="5" Click="StartButton_OnClick" HorizontalAlignment="Center">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="White" BorderBrush="#af64f5" BorderThickness="1" CornerRadius="3">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-
-            </Button>
-            
+            <Button Width="100" Name="startButton" Foreground="{DynamicResource TextMain}" Content="Start" Margin="5" Click="StartButton_OnClick" HorizontalAlignment="Center" Style="{StaticResource ButtonDef}"/>
+           
             <Button Content="Setting" Width="20" Height="20" Click="Open_Setting_Btn" HorizontalAlignment="Left"/>
         </StackPanel>
 
@@ -67,22 +83,22 @@
 
 
         
-        <TextBox  Padding="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="textBox1" >
-            <TextBox.Template>
+        <TextBlock  TextWrapping="Wrap" Foreground="{DynamicResource Text}" Padding="10" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="textBox1" >
+            <!--<TextBlock.Template>
                 <ControlTemplate>
-                    <Border  CornerRadius="22" Padding="2" BorderThickness="1" BorderBrush="#8400ff" Background="White">
+                    <Border  CornerRadius="22" Padding="2" BorderThickness="1" BorderBrush="#8400ff" Background="{DynamicResource EditText}">
                         <ScrollViewer  Margin="0" x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
-            </TextBox.Template>
-        </TextBox>
+            </TextBlock.Template>-->
+        </TextBlock>
 
 
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="#FFE8E8E8" Width="240">
+        <StackPanel  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="20,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Border Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,20" Background="{DynamicResource EditText}" Width="240">
                 <StackPanel Margin="20">
-                    <TextBlock Text="Размер" FontSize="20" />
+                    <TextBlock Foreground="{DynamicResource TextMain}" Text="Размер" FontSize="20" />
                 </StackPanel>
             </Border>
         </StackPanel>
